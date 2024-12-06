@@ -1,0 +1,483 @@
+{
+	"info": {
+		"_postman_id": "cdd54b82-ab24-44f4-8cd3-571005037a0d",
+		"name": "Module 14",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9518923",
+		"_collection_link": "https://www.postman.com/planetary-escape-12290/workspace/ostad-laravel-b3/collection/9518923-cdd54b82-ab24-44f4-8cd3-571005037a0d?action=share&source=collection_link&creator=9518923"
+	},
+	"item": [
+		{
+			"name": "/demo1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/demo1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"demo1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/demo2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/demo2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"demo2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/demo3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/demo3",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"demo3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/demo4",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/demo4",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"demo4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/demo5",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/demo5",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"demo5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/demo6",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/demo6",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"demo6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/demo7",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/demo7",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"demo7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/demo8",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/demo8",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"demo8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/demo9",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/demo9",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"demo9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/demo10",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/demo10",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"demo10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/demo11",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/demo11",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"demo11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/demo12",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/demo12",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"demo12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/demo13",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/demo13",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"demo13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/demo14",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/demo14",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"demo14"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/demo15",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/demo15/100/200",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"demo15",
+						"100",
+						"200"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/demo16",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"num1\":\"1\",\r\n    \"num2\":\"2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/demo16",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"demo16"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/demo17",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "my_key",
+						"value": "00000000",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"userName\":\"ostad\",\r\n\t\"password\":\"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/demo17",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"demo17"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/demo18",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "my_key",
+						"value": "00000000"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"userName\":\"ostad\",\r\n\t\"password\":\"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/demo17",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"demo17"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/demo19",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "my_key",
+						"value": "00000000"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"userName\":\"ostad\",\r\n\t\"password\":\"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/demo19",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"demo19"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
