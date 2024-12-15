@@ -1,0 +1,367 @@
+//Table + model create====> php artisan make:model ModelName(means table name) -m
+example:
+ 1.php artisan make:model Payment -m
+ 
+ 2.model created (Payment) and migration file(this file for create table) will be created(create_payment_tables)
+    public function up()
+    {
+        Schema::create('payments', function (Blueprint $table) {
+            $table->id(); // Auto-incrementing ID
+            $table->string('txid');
+            $table->string('system'); // e.g., ugr, pgr
+            $table->string('method'); // e.g., bkash, nagad
+	    $table->string('userpin');//store applicant id
+            $table->timestamps(); // created_at and updated_at columns
+        });
+    }
+    
+  3.table store in database
+   php artisan migrate  
+
+
+//Table Create(migration create)-->Model Create-->Controller create-->
+//Table number==model number==controller number
+//Migration-->use for table create
+//Controller-->use for data insert from method (work done controller method) and we return view
+//Web.php-->use for give route to call Controller method-->from controller method we process data and return view
+
+//for comment
+ctrl+/
+shift+alt+a
+
+//Step1(Globala installation)[only first time][no need after installation]
+composer global require laravel/installer
+
+//step2(install project)
+composer create-project --prefer-dist laravel/laravel project_name
+
+//step3
+open this project folder using vs code
+
+//step4
+open project folder using git-bash or vs-code terminal
+
+//step5(enter the command)
+php artisan serve
+
+//step6(place this url in browser)
+http://127.0.0.1:8000
+
+
+
+-----------------------------------Controller--------------------------------------
+
+//controller making
+php artisan make:controller UserController
+
+//single function controller
+php artisan make:controller TestingController--invokable
+
+//route list except vendor(without predefined package show all route list)
+php artisan route:list --except-vendor
+
+
+----------------------------------Migration(table create)-----------------------------------------
+//migration create(new table create)(step1)
+php artisan make:migration create_tablename_table
+
+//table structure store in database(step2)
+php artisan migrate
+
+//If you would like to see which migrations have run(which migration file runs)
+php artisan migrate:status
+
+//forcefully migrate
+php artisan migrate --force
+
+//To roll back the latest migration operation, you may use the rollback 
+php artisan migrate:rollback
+
+//For example, the following command will roll back the last 2 migrations:
+php artisan migrate:rollback --step=2
+
+//the following command will roll back all migrations in batch three:(3rd number migration rollback)
+php artisan migrate:rollback --batch=3
+
+//The migrate:reset command will roll back all of your application's migrations:
+php artisan migrate:reset
+
+//The migrate:refresh command will roll back all of your migrations and then execute the migrate command.
+/This command rolls back all of your database migrations and then re-runs them.
+//It first calls php artisan migrate:reset to roll back all migrations, and then it calls php artisan migrate to re-run them.
+php artisan migrate:refresh
+
+
+//This command(php artisan migrate:fresh) drops all tables in the database and then runs all of your migrations again from scratch.
+//It's used when you want to completely reset your database, removing all data and starting with a clean slate.
+php artisan migrate:fresh
+
+
+//Model+Migration created
+
+
+-----------------------------------------Migration(for update column)----------------------------------
+//step1(create migration)
+php artisan make:migration update_students_table --table=students
+//step2(add column in migration)
+
+//step3(data store in database) using migration command
+php artisan migrate
+
+----------------------------------------Migration(for update table)-------------------------------------
+//step1(create migration)(php artisan make:migration migration_name)
+php artisan make:migration table_migration 
+
+//step2(table updation work into migration file)
+//(To drop an existing table, you may use the drop or dropIfExists methods:)
+Schema::drop('users');
+ 
+Schema::dropIfExists('users');
+
+//new structure update into database
+php artisan migrate
+
+----------------------------------------Migration(for drop foreign key(any key))----------------------
+//step1 (create migration file)
+php artisan make:migration update_library_table --table=libraries
+//step2(code for updation)
+    public function up(): void
+    {
+        Schema::table('libraries', function (Blueprint $table) {
+            $table->dropForeign(['student_id']);
+        });
+    }
+
+//step3(refresh)
+ php artisan migrate:refresh
+
+
+
+----------------------------------------Seeder(initial data insert)--------------------------------------------
+
+//step1:model create (name should be same as table name but 's' should not included)
+php artisan make:model student
+
+//step2: making seeder file(should be same as table name)
+php artisan make:seeder StudentSeeder
+
+//step3: include model into StudentSeeder file
+use App\Models\student;
+
+//step4: data insert into StudentSeeder file
+    public function run(): void
+    {
+        //data insert
+        student::create([
+            'name'=>'Utsab roy',
+            'email'=>'utsab@gmail.com'
+        ]);
+    }
+
+//step5:StudentSeeder call from DatbaseSeeder(All seeder class call from Database seeder)
+ public function run(): void
+    {
+        $this->call([
+            StudentSeeder::class
+        ]);
+    }
+
+//step6:run seeder 
+php artisan db:seed
+
+----------------------------------------Seeder(multiple data insert)--------------------------------------------
+//step4(step1-3 same as above)
+//data insert in student seeder file
+        $students=collect(
+            [
+                [
+                    'name'=>'utsab roy',
+                    'email'=>'utsab@gmail.com'
+                ],
+                [
+                    'name'=>'utsab roy',
+                    'email'=>'utsab@gmail.com'
+                ],
+                [
+                    'name'=>'utsab roy',
+                    'email'=>'utsab@gmail.com'
+                ],
+                [
+                    'name'=>'utsab roy',
+                    'email'=>'utsab@gmail.com'
+                ]
+            ]
+        );
+        //variable_name->each(function($single_array))
+        $students->each(function($single_array){
+            //tablename::insert($single_array)
+            student::insert($single_array);
+        });
+
+
+//step6:run seeder 
+php artisan migrate:fresh --seed
+
+
+----------------------------------Single Seeder class call from DatabaseSeeder---------------------------------------
+php artisan db:seed --class=StudentSeeder
+
+
+
+----------------------------------Data store from json file to database file------------------------------------------
+step1:create json file and store data into json file
+
+step2:get json data
+$json=File::get(path:'database/json/student.json');
+
+step3:convert json data to array
+$students_data=json_decode($json);
+
+step4:add collect method in array
+$students_data=collect($students_data);
+
+step5:single data fetch from array
+
+step6:insert data into database
+	$students_data->each(function($single_student){
+           //we need to use creat method for insert in laravel
+            student::create([
+                'name'=>$single_student->name,
+                'email'=>$single_student->email 
+            ]);
+        });
+
+//step7:run seeder 
+php artisan migrate:fresh --seed
+
+------------------------------dummy data insert---------------------------------
+//fake data insert(step1)
+        for($i=1;$i<=10;$i++){
+            student::create([
+                 'name'=>fake()->name(),
+                'email'=>fake()->unique()->email() 
+    
+            ]);
+        }
+//step2:run seeder 
+php artisan migrate:fresh --seed
+
+-----------------------------dummy data insert using factory----------------------
+//step1:create table in migration file
+	Schema::create('students', function (Blueprint $table) {
+            $table->id();
+            $table->string('name',30);
+            $table->integer('age');
+            $table->string('email',40)->nullable()->unique();
+            $table->string('address');
+            $table->string('city');
+            $table->string('phone');
+            $table->string('password');
+            $table->timestamps();
+        });
+
+//step2:model create (name should be same as table name but 's' should not included)
+php artisan make:model student
+
+//step3: making factory file(should be same as table name)
+php artisan make:factory StudentFactory 
+
+//step4:insert fake data in StudentFactory
+	return [
+            //fake name insert
+            'name'=> fake()->name(),
+            'age'=> fake()->numberBetween(15,20),
+            'email'=> fake()->email(),
+            'address'=> fake()->address(),
+            'city'=> fake()->city(),
+            'phone'=> fake()->phoneNumber(),
+            'password'=> fake()->password()
+        ];
+
+//step5: give command for how many data you want to insert(In DatabaseSeeder)
+student::factory()->count(10)->create();
+
+//step6: migration
+php artisan migrate:fresh
+
+//step7:finally data insert==> data store in database(run seeder file(database seeder))
+php artisan db:seed
+
+//step8(optional step8=step6+step7)(old table data removed and new data insert)
+php artisan migrate:fresh --seed
+
+
+
+
+---------------------------------------new project setup with insert data into database---------------------------------------------
+
+//step1(install project)
+composer create-project --prefer-dist laravel/laravel project_name
+
+//step2(database create)
+database create from xampp software
+http://localhost/phpmyadmin
+
+//step3(change database name)
+change database name in .env file
+
+//step4(table create using migration)
+//migration create(new table create)
+php artisan make:migration create_tablename_table
+
+//step5 (table structure store in database)
+php artisan migrate
+
+
+//step6:model create (name should be same as table name but 's' should not included)
+php artisan make:model student
+
+//step7: making seeder file(should be same as table name)
+php artisan make:seeder StudentSeeder
+
+//step8: include model into StudentSeeder file
+use App\Models\student;
+
+//step9: Data store from json file to database file
+
+step9.1:create json file and store data into json file
+
+step9.2:get json data into StudentSeeder File(must include==>use Illuminate\Support\Facades\File;)
+$json=File::get(path:'database/json/student.json');
+
+step9.3:convert json data to array
+$students_data=json_decode($json);
+
+step9.4:add collect method in array
+$students_data=collect($students_data);
+
+step9.5:single data fetch from array
+
+step9.6:insert data into database
+	$students_data->each(function($single_student){
+           //we need to use creat method for insert in laravel
+            student::create([
+                'name'=>$single_student->name,
+                'email'=>$single_student->email 
+            ]);
+        });
+
+//step10:StudentSeeder call from DatbaseSeeder(All seeder class call from Database seeder)
+ public function run(): void
+    {
+        $this->call([
+            StudentSeeder::class
+        ]);
+    }
+
+//step11 or step12:run seeder 
+php artisan db:seed
+
+//or step12
+php artisan migrate:fresh --seed
+
+-----------------------demo data print-----------------
+dd(variable name)
+
+
+

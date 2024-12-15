@@ -1,0 +1,236 @@
+create
+php artisan make:migration create_users_table
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('users', function (Blueprint $table) {
+            $table->id(); // Unsigned Big integer Primary key(auto increment)
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->timestamp('created_at')->useCurrent(); // Default to CURRENT_TIMESTAMP
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate(); // Updates to CURRENT_TIMESTAMP on update
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('users');
+    }
+};
+
+save in database:
+php artisan migrate
+
+delete all migration and rerun migration
+php artisan migrate:refresh
+
+add column 
+php artisan make:migration add_mobile_number_to_users --table=users
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            //add new column
+            $table->string('mobile_number')->nullable()->unique();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->dropColumn('mobile_number');
+        });
+    }
+};
+
+
+
+
+
+rename column
+php artisan make:migration rename_mobile_number_in_users --table=users
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->renameColumn('mobile_number','mobile_number_ok');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->renameColumn('mobile_number_ok','mobile_number');
+        });
+    }
+};
+
+
+
+
+
+
+
+remove column
+php artisan:make migration remove_mobile_number_ok_from_users --table=users
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        /* Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('mobile_number_ok');
+        }); */
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        /* Schema::table('users', function (Blueprint $table) {
+            //
+            $table->string('mobile_number_ok'); // Recreate the column if needed
+        }); */
+    }
+};
+
+
+
+
+
+
+
+update column
+php artisan make:migration update_mobile_number_ok_in_users --table=users
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('mobile_number_ok',255)->nullable()->unique()->change();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            //for rollback
+            $table->string('mobile_number_ok',100)->nullable(false)->change();
+        });
+    }
+};
+
+
+
+
+
+
+
+rollback/delete one last migration
+php artisan migrate:rollback
+
+php artisan migrate:rollback --step==1
+
+
+status check
+php artisan migrate:status
+
+Rename Table
+php artisan make:migration rename_users_to_usersBoss
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::rename('users', 'usersBoss');
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            Schema::rename('usersBoss', 'users');
+        });
+    }
+};
+
+
+
+
+
+
+
+
+Drop Table
+php artisan make:migration drop_usersBoss_table
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::dropIfExists('usersBoss');
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::create('users', function (Blueprint $table) {
+            $table->id(); // Unsigned Big integer Primary key(auto increment)
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->timestamp('created_at')->useCurrent(); // Default to CURRENT_TIMESTAMP
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate(); // Updates to CURRENT_TIMESTAMP on update
+        });
+    }
+};
+
