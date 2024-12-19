@@ -1,0 +1,1701 @@
+//select all row/retrive all record
+Route::get('/select-all-user',[QueryBuilderController::class,'select_all_user']); 
+//select all user
+public function select_all_user()
+{
+	//Select All
+	$users = DB::table('users')->get();
+	return $users;
+}
+//output
+
+ [
+    {
+        "id": 1,
+        "email": "engr.rabbil@yahoo.com",
+        "otp": "1524",
+        "created_at": "2023-02-20 01:26:39",
+        "updated_at": "2023-05-26 16:39:04"
+    },
+    {
+        "id": 2,
+        "email": "kajiraj.raj@gmail.com",
+        "otp": "8208",
+        "created_at": "2023-03-01 21:28:34",
+        "updated_at": "2023-05-10 20:46:31"
+    }
+]
+
+//Retrive First Record
+Route::get('/retrive-first-record',[QueryBuilderController::class,'retrive_first_record']);
+//Retrive first record
+public function retrive_first_record()
+{
+	$user = DB::table('users')->first();
+	return $user;
+}
+//output
+{
+    "id": 1,
+    "email": "engr.rabbil@yahoo.com",
+    "otp": "1524",
+    "created_at": "2023-02-20 01:26:39",
+    "updated_at": "2023-05-26 16:39:04"
+}
+
+
+//Retrive using primary key id
+Route::get('/retrive-using-id/{id}',[QueryBuilderController::class,'retrive_using_id']);
+
+//Retrive  record using primary key
+public function retrive_using_id(Request $request)
+{
+	$user = DB::table('users')->find($request->id);
+	return $user;
+}
+//output
+{
+    "id": 8,
+    "email": "emkfahmidurrahman@gmail.com",
+    "otp": "0",
+    "created_at": "2023-03-15 20:43:57",
+    "updated_at": "2023-03-15 21:03:53"
+}
+
+
+//retrive single value from column
+//SELECT `email` FROM `users` LIMIT 1;
+Route::get('/retrive-single-value-form-column',[QueryBuilderController::class,'retrive_single_value_form_column']);
+//retrive single value from any column
+public function retrive_single_value_form_column()
+{
+	//SELECT `email` FROM `users` LIMIT 1;
+	$users = DB::table('users')->value('email');
+	return $users;
+}
+//Output:
+ishathi09@gmail.com
+
+
+
+
+//Retrive value as key value pair(associative array)
+Route::get('/pluck',[QueryBuilderController::class,'pluck']);
+public function pluck()
+{
+	//Retrive value as key value pair(associative array)
+	//key=id value=email
+	//it recive max two column
+	$users = DB::table('users')->pluck('email', 'id');
+	return $users;
+}
+
+//Output:
+{
+    "1": "engr.rabbil@yahoo.com",
+    "2": "kajiraj.raj@gmail.com",
+    "3": "md.rafat.meraz@gmail.com",
+    "4": "ahadabdullah@gmail.com",
+    "5": "ariyankhanmonir999@gmail.com",
+    "6": "mycoc2972@gmail.com",
+    "7": "md.nurnabimiah5@gmail.com",
+    "8": "emkfahmidurrahman@gmail.com"
+}
+
+
+
+
+
+
+
+//Select statement
+//Select Any column
+Route::get('/select-any-column',[QueryBuilderController::class,'select_any_column']);
+//Select Any column
+public function select_any_column()
+{
+	$users = DB::table('users')->select('id', 'email', 'otp')->get();
+	return $users;
+}
+
+//Output:
+[
+    {
+        "id": 1,
+        "email": "engr.rabbil@yahoo.com",
+        "otp": "1524"
+    },
+    {
+        "id": 2,
+        "email": "kajiraj.raj@gmail.com",
+        "otp": "8208"
+    },
+    {
+        "id": 3,
+        "email": "md.rafat.meraz@gmail.com",
+        "otp": "0"
+    }
+]
+
+
+
+//Select any column with distinct value
+Route::get('/select-with-distinct-column-value',[QueryBuilderController::class,'select_with_distinct_column_value']);
+ //select with distinct column value
+public function select_with_distinct_column_value()
+{
+	$users = DB::table('users')->select('id', 'email')->distinct()->get();
+	return $users;
+}
+//Output:
+[
+    {
+        "id": 98,
+        "email": " ishathi09@gmail.com"
+    },
+    {
+        "id": 81,
+        "email": " rabdur055@gmail.com"
+    }
+]
+
+//Select column and rename column name
+Route::get('/select-any-column-alias',[QueryBuilderController::class,'select_any_column_alias']);
+ //select with Alias
+public function select_any_column_alias()
+{
+	//Select column and rename column name
+	$users = DB::table('users')->select('id as user_id', 'email as user_email')->get();
+	return $users;
+}
+//Output:
+[
+    {
+        "user_id": 98,
+        "user_email": " ishathi09@gmail.com"
+    },
+    {
+        "user_id": 81,
+        "user_email": " rabdur055@gmail.com"
+    },
+    {
+        "user_id": 15,
+        "user_email": "a@frt.com"
+    }
+]
+
+//Combine Select and Where
+Route::get('/select-with-where',[QueryBuilderController::class,'select_with_where']);
+public function select_with_where()
+{
+	$users = DB::table('users')->select('id', 'email', 'otp')->where('id', '<=', '3')->get();
+	return $users;
+}
+Output:
+[
+    {
+        "id": 1,
+        "email": "engr.rabbil@yahoo.com",
+        "otp": "1524"
+    },
+    {
+        "id": 2,
+        "email": "kajiraj.raj@gmail.com",
+        "otp": "8208"
+    },
+    {
+        "id": 3,
+        "email": "md.rafat.meraz@gmail.com",
+        "otp": "0"
+    }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Aggregates Method
+//count
+Route::get('/aggregate-count',[QueryBuilderController::class,'aggregate_count']);
+public function aggregate_count()
+{
+	$total_product_row = DB::table('products')->count();
+	return $total_product_row;
+}
+//Output:
+27
+
+
+//max
+Route::get('/aggregate-max',[QueryBuilderController::class,'aggregate_max']);
+public function aggregate_max()
+{
+	$max_price = DB::table('products')->max('price');
+	return $max_price;
+}
+//Output:
+9002
+
+
+
+//min
+Route::get('/aggregate-min',[QueryBuilderController::class,'aggregate_min']);
+public function aggregate_min()
+{
+	$min_price = DB::table('products')->min('price');
+	return $min_price;
+}
+//Output:
+1000
+
+
+
+//sum
+Route::get('/aggregate-sum',[QueryBuilderController::class,'aggregate_sum']);
+public function aggregate_sum()
+{
+	$sum_price = DB::table('products')->sum('price');
+	return $sum_price;
+}
+//Output:
+45502
+
+
+//average
+Route::get('/aggregate-avg',[QueryBuilderController::class,'aggregate_avg']);
+public function aggregate_avg()
+{
+	$avg_price = DB::table('products')->avg('price');
+	return $avg_price;
+}
+//Output:
+1820.08
+
+
+
+
+
+//sum with condition
+Route::get('/sum-with-condition',[QueryBuilderController::class,'sum_with_condition']);
+public function sum_with_condition()
+{
+	$sum_with_condition = DB::table('products')->where('price', '>', '2000')->sum('price');
+	//$sum_with_condition=DB::table('products')->where('price','>','2000')->avg('price');
+	return $sum_with_condition;
+}
+//Output:
+15502
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Ordering Grouping
+//order by desc
+Route::get('/order-by',[QueryBuilderController::class,'order_by']);
+public function order_by()
+{
+	$order_by_value = DB::table('brands')->orderBy('brandName', 'desc')->get();
+	return $order_by_value;
+}
+//Output:
+[
+    {
+        "id": 1,
+        "brandName": "Xiaomi",
+        "brandImg": "https://photo.teamrabbil.com/images/2023/04/04/Group-1058.png",
+        "created_at": "2023-02-19 20:05:15",
+        "updated_at": "2023-04-05 01:22:27"
+    },
+    {
+        "id": 5,
+        "brandName": "utsabFabrics",
+        "brandImg": "Demo Image",
+        "created_at": "2024-12-19 10:27:24",
+        "updated_at": "2024-12-19 10:27:24"
+    },
+    {
+        "id": 6,
+        "brandName": "utsabFabrics",
+        "brandImg": "Demo Image",
+        "created_at": "2024-12-19 10:32:03",
+        "updated_at": "2024-12-19 10:32:03"
+    }
+]
+
+	
+//latest
+Route::get('/latest',[QueryBuilderController::class,'latest']);
+public function latest()
+{
+	$latest_value = DB::table('users')->latest('created_at')->first();
+	return $latest_value;
+}
+//Output:
+{
+    "id": 103,
+    "email": "rabdur055@gnail.com",
+    "otp": "2731",
+    "created_at": "2023-05-30 00:02:48",
+    "updated_at": "2023-05-30 00:07:41"
+}
+
+
+
+//order by oldest
+Route::get('/oldest',[QueryBuilderController::class,'oldest']);
+public function oldest()
+{
+	$oldest_value = DB::table('users')->oldest('created_at')->first();
+	return $oldest_value;
+}
+//Output:
+{
+    "id": 1,
+    "email": "engr.rabbil@yahoo.com",
+    "otp": "1524",
+    "created_at": "2023-02-20 01:26:39",
+    "updated_at": "2023-05-26 16:39:04"
+}
+
+
+//group by
+Route::get('/group-by',[QueryBuilderController::class,'groupBy']);
+public function groupBy()
+{
+	$group_value = DB::table('products')->select('price')->groupBy('price')->get();
+	return $group_value;
+}
+//Output:
+[
+    {
+        "price": null
+    },
+    {
+        "price": "1000"
+    },
+    {
+        "price": "1500"
+    },
+    {
+        "price": "2000"
+    },
+    {
+        "price": "2500"
+    },
+    {
+        "price": "4000"
+    },
+    {
+        "price": "9002"
+    }
+]
+
+
+//group by with having
+Route::get('/group-by-having',[QueryBuilderController::class,'groupByHaving']);
+public function groupByHaving()
+{
+	$group_value_with_having = DB::table('products')
+								->select('price')->groupBy('price')
+								->having('price', '>', '2000')
+								->get();
+	return $group_value_with_having;
+}
+//Output:
+[
+    {
+        "price": "2500"
+    },
+    {
+        "price": "4000"
+    },
+    {
+        "price": "9002"
+    }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Where Clause
+Route::get('/where',[QueryBuilderController::class,'where']);
+//Where Clause
+public function where()
+{
+	$products = DB::table('products')->where('price', '=', '1500')->get();
+	//$products=DB::table('products')->where('price','>=','1500')->get();
+	//$products=DB::table('products')->where('price','<=','1500')->get();
+	return $products;
+}
+
+//Output:
+[
+    {
+        "id": 3,
+        "title": "New Year Special Shoe",
+        "short_des": "Reference site about Lorem Ipsum, giving information on its \r\norigins, as well as a random Lipsum generator Reference site \r\nabout Lorem Ipsum, giving information on its origins, as well as \r\na random Lipsum generator",
+        "price": "1500",
+        "discount": 0,
+        "discount_price": "0",
+        "image": "https://photo.teamrabbil.com/images/2023/04/04/product.png",
+        "stock": 0,
+        "star": 4.8,
+        "remark": "popular",
+        "category_id": 4,
+        "brand_id": 3,
+        "created_at": "2023-02-19 20:08:12",
+        "updated_at": "2024-12-19 18:31:21"
+    },
+    {
+        "id": 4,
+        "title": "New Year Special Shoe",
+        "short_des": "Reference site about Lorem Ipsum, giving information on its \r\norigins, as well as a random Lipsum generator Reference site \r\nabout Lorem Ipsum, giving information on its origins, as well as \r\na random Lipsum generator",
+        "price": "1500",
+        "discount": 0,
+        "discount_price": "0",
+        "image": "https://photo.teamrabbil.com/images/2023/04/04/product.png",
+        "stock": 1,
+        "star": 4.8,
+        "remark": "popular",
+        "category_id": 4,
+        "brand_id": 3,
+        "created_at": "2023-02-19 20:08:12",
+        "updated_at": "2024-12-19 17:40:08"
+    }
+]
+
+
+//orWhere
+Route::get('/orWhere',[QueryBuilderController::class,'orWhere']);
+//price<=4000 or id<=3
+//if not give select that will select all column
+public function orWhere()
+{
+	$products = DB::table('products')
+					->select('id', 'title', 'price')
+					->where('price', '=', '4000')
+					->orWhere('id', '<=', '3')->get();
+	return $products;
+}
+//Output:
+[
+    {
+        "id": 1,
+        "title": "New Year Special Shoe",
+        "price": "9002"
+    },
+    {
+        "id": 2,
+        "title": "New Year Special Shoe",
+        "price": "4000"
+    },
+    {
+        "id": 3,
+        "title": "New Year Special Shoe",
+        "price": "1500"
+    }
+]
+	
+//whereBetween; select price between 1000 to 1500(include 1000 and 1500)
+Route::get('/whereBetween',[QueryBuilderController::class,'whereBetween']);
+//if not give select that will select all column
+//select price between 1000 to 1500
+public function whereBetween()
+{
+	$products = DB::table('products')
+		->select('id', 'title', 'price')
+		->whereBetween('price', [1000, 1500])
+		->get();
+	return $products;
+}
+//Output:
+[
+    {
+        "id": 3,
+        "title": "New Year Special Shoe",
+        "price": "1500"
+    },
+    {
+        "id": 4,
+        "title": "New Year Special Shoe",
+        "price": "1500"
+    },
+    {
+        "id": 5,
+        "title": "New Year Special Shoe",
+        "price": "1000"
+    }
+]
+
+
+
+//whereNotBetween; select price not between 1000 to 1500(include 1000 and 1500)
+Route::get('/whereNotBetween',[QueryBuilderController::class,'whereNotBetween']);
+//if not give select that will select all column
+//select price between 1000 to 1500
+public function whereNotBetween()
+{
+	$products = DB::table('products')
+		->select('id', 'title', 'price')
+		->whereNotBetween('price', [1000, 1500])
+		->get();
+	return $products;
+}
+//Output:
+[
+    {
+        "id": 1,
+        "title": "New Year Special Shoe",
+        "price": "9002"
+    },
+    {
+        "id": 2,
+        "title": "New Year Special Shoe",
+        "price": "4000"
+    },
+    {
+        "id": 7,
+        "title": "New Year Special Shoe",
+        "price": "2000"
+    },
+    {
+        "id": 8,
+        "title": "New Year Special Shoe",
+        "price": "2000"
+    },
+    {
+        "id": 16,
+        "title": "New Year Special Shoe",
+        "price": "2000"
+    },
+    {
+        "id": 23,
+        "title": "New Year Special Shoe",
+        "price": "2500"
+    }
+]
+
+
+
+	
+//WhereIn select price if price=50,100,150
+Route::get('/whereIn',[QueryBuilderController::class,'whereIn']);
+public function whereIn()
+{
+	$products = DB::table('products')
+		->select('id', 'title', 'price')
+		->whereIn('price', [1000, 1500])
+		->get();
+	return $products;
+}
+//Output:
+[
+    {
+        "id": 3,
+        "title": "New Year Special Shoe",
+        "price": "1500"
+    },
+    {
+        "id": 4,
+        "title": "New Year Special Shoe",
+        "price": "1500"
+    },
+    {
+        "id": 5,
+        "title": "New Year Special Shoe",
+        "price": "1000"
+    }
+]
+
+	
+//WhereNotIn select price if price not=50,100,150
+Route::get('/whereNotIn',[QueryBuilderController::class,'whereNotIn']);
+public function whereNotIn()
+{
+	$products = DB::table('products')
+		->select('id', 'title', 'price')
+		->whereNotIn('price', [1000, 1500])
+		->get();
+	return $products;
+}
+//Output:
+[
+    {
+        "id": 1,
+        "title": "New Year Special Shoe",
+        "price": "9002"
+    },
+    {
+        "id": 2,
+        "title": "New Year Special Shoe",
+        "price": "4000"
+    },
+    {
+        "id": 7,
+        "title": "New Year Special Shoe",
+        "price": "2000"
+    },
+    {
+        "id": 8,
+        "title": "New Year Special Shoe",
+        "price": "2000"
+    },
+    {
+        "id": 16,
+        "title": "New Year Special Shoe",
+        "price": "2000"
+    },
+    {
+        "id": 23,
+        "title": "New Year Special Shoe",
+        "price": "2500"
+    }
+]
+
+	
+//WhereNULL
+Route::get('/whereNull',[QueryBuilderController::class,'whereNull']);
+public function whereNull()
+{
+	$products = DB::table('products')
+		->select('id', 'title', 'price') // Select specific columns
+		->whereNull('price') // Check for NULL values in the 'price' column
+		->get(); // Execute the query and get the results
+	return $products;
+}
+//Output:
+[
+    {
+        "id": 26,
+        "title": "New Year Special Shoe",
+        "price": null
+    },
+    {
+        "id": 27,
+        "title": "New Year Special Shoe",
+        "price": null
+    }
+]
+	
+//WhereNotNULL
+Route::get('/whereNotNull',[QueryBuilderController::class,'whereNotNull']);
+public function whereNotNull()
+{
+	$products = DB::table('products')
+		->select('id', 'title', 'price') // Select specific columns
+		->whereNotNull('price') // Check for NULL values in the 'price' column
+		->get(); // Execute the query and get the results
+	return $products;
+}
+//Output:
+[
+    {
+        "id": 1,
+        "title": "New Year Special Shoe",
+        "price": "9002"
+    },
+    {
+        "id": 2,
+        "title": "New Year Special Shoe",
+        "price": "4000"
+    },
+    {
+        "id": 3,
+        "title": "New Year Special Shoe",
+        "price": "1500"
+    }
+]
+	
+//WhereColumn(2 column equality check value)
+Route::get('/whereColumn',[QueryBuilderController::class,'whereColumn']);
+ public function whereColumn()
+{
+	$products = DB::table('products')
+		->select('id', 'title', 'price') // Select specific columns
+		->whereColumn('price', 'discount_price') // price is equal to discount_price
+		->get();
+	return $products;
+}
+//whereDate Month Year(Filters records based on a specific date (including year, month, and day).)
+Route::get('/where-date-month-year',[QueryBuilderController::class,'where_date_month_year']);
+//20/02/2023
+public function where_date_month_year(){
+	//for date range
+	//->whereBetween('created_at', ['2023-12-01', '2023-12-31'])
+	$result=DB::table('users')
+			->whereYear('created_at','=',2023)
+			->whereMonth('created_at','=',2)
+			->whereDay('created_at','=',20)
+			->get();
+
+	if ($result) {
+		return response()->json(['data' => $result], 200);
+	} else {
+		return response()->json(['message' => 'Not found'], 404);
+	}
+}
+//Output:
+{
+    "data": [
+        {
+            "id": 1,
+            "email": "engr.rabbil@yahoo.com",
+            "otp": "1524",
+            "created_at": "2023-02-20 01:26:39",
+            "updated_at": "2023-05-26 16:39:04"
+        }
+    ]
+}
+	
+//Advance where using function
+//If your query involves a mix of AND and OR conditions that need proper grouping
+// (e.g., (A AND B) OR (C AND D)), closures help maintain clarity and
+// ensure correct SQL generation.
+//For Simple Query No need to use query with function
+Route::get('/advance-where-no-need',[QueryBuilderController::class,'advance_where_no_need']);
+//simple(for simple query we no need to use function )
+/*  SELECT *
+FROM product
+WHERE price > 2000 OR category_id = 3; */
+
+/* $products = DB::table('product')
+->where('price', '>', 2000)
+->orWhere('category_id', 3)
+->get(); */
+
+
+public function advance_where_no_need(){
+	//for date range
+	//->whereBetween('created_at', ['2023-12-01', '2023-12-31'])
+	$result=DB::table('products')
+			->where(function ($query){
+				$query->where('price','>=',4000)
+					  ->orWhere('category_id','=',4);
+			})
+			->get();
+
+	if ($result) {
+		return response()->json(['data' => $result], 200);
+	} else {
+		return response()->json(['message' => 'Not found'], 404);
+	}
+}
+//Output:
+{
+    "data": [
+        {
+            "id": 1,
+            "title": "New Year Special Shoe",
+            "short_des": "Reference site about Lorem Ipsum, giving information on its \r\norigins, as well as a random Lipsum generator Reference site \r\nabout Lorem Ipsum, giving information on its origins, as well as \r\na random Lipsum generator",
+            "price": "9002",
+            "discount": 10,
+            "discount_price": "0",
+            "image": "https://photo.teamrabbil.com/images/2023/04/04/product.png",
+            "stock": 0,
+            "star": 4.8,
+            "remark": "popular",
+            "category_id": 3,
+            "brand_id": 4,
+            "created_at": "2023-02-19 20:08:12",
+            "updated_at": "2024-12-19 18:31:52"
+        },
+        {
+            "id": 2,
+            "title": "New Year Special Shoe",
+            "short_des": "Reference site about Lorem Ipsum, giving information on its \r\norigins, as well as a random Lipsum generator Reference site \r\nabout Lorem Ipsum, giving information on its origins, as well as \r\na random Lipsum generator",
+            "price": "4000",
+            "discount": 0,
+            "discount_price": "1500",
+            "image": "https://photo.teamrabbil.com/images/2023/04/04/product.png",
+            "stock": 0,
+            "star": 4.8,
+            "remark": "popular",
+            "category_id": 3,
+            "brand_id": 4,
+            "created_at": "2023-02-19 20:08:12",
+            "updated_at": "2024-12-19 18:31:58"
+        }
+	]
+
+Route::get('/advance-where-with-function',[QueryBuilderController::class,'advance_where_with_function']);
+/* SELECT *
+FROM product
+WHERE (price > 2000 OR category_id = 4)
+AND stock = '0'; */
+/*  If your query involves a mix of AND and OR conditions that need proper grouping
+(e.g., (A AND B) OR (C AND D)), closures help maintain clarity
+and ensure correct SQL generation. */
+
+public function advance_where_with_function(){
+	//for date range
+	//->whereBetween('created_at', ['2023-12-01', '2023-12-31'])
+	$result=DB::table('products')
+			->where(function ($query){
+				$query->where('price','>=',4000)
+					  ->orWhere('category_id','=',4);
+			})
+			->where('stock','=',0)
+			->get();
+
+	if ($result) {
+		return response()->json(['data' => $result], 200);
+	} else {
+		return response()->json(['message' => 'Not found'], 404);
+	}
+}
+//Output:
+    "data": [
+        {
+            "id": 1,
+            "title": "New Year Special Shoe",
+            "short_des": "Reference site about Lorem Ipsum, giving information on its \r\norigins, as well as a random Lipsum generator Reference site \r\nabout Lorem Ipsum, giving information on its origins, as well as \r\na random Lipsum generator",
+            "price": "9002",
+            "discount": 10,
+            "discount_price": "0",
+            "image": "https://photo.teamrabbil.com/images/2023/04/04/product.png",
+            "stock": 0,
+            "star": 4.8,
+            "remark": "popular",
+            "category_id": 3,
+            "brand_id": 4,
+            "created_at": "2023-02-19 20:08:12",
+            "updated_at": "2024-12-19 18:31:52"
+        },
+        {
+            "id": 2,
+            "title": "New Year Special Shoe",
+            "short_des": "Reference site about Lorem Ipsum, giving information on its \r\norigins, as well as a random Lipsum generator Reference site \r\nabout Lorem Ipsum, giving information on its origins, as well as \r\na random Lipsum generator",
+            "price": "4000",
+            "discount": 0,
+            "discount_price": "1500",
+            "image": "https://photo.teamrabbil.com/images/2023/04/04/product.png",
+            "stock": 0,
+            "star": 4.8,
+            "remark": "popular",
+            "category_id": 3,
+            "brand_id": 4,
+            "created_at": "2023-02-19 20:08:12",
+            "updated_at": "2024-12-19 18:31:58"
+        }
+	]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//take
+Route::get('/take',[QueryBuilderController::class,'take']);
+//take first 5 record
+public function take()
+{
+	$users = DB::table('users')->select('id', 'email')->take(5)->get();
+	return $users;
+}
+//Output:
+[
+    {
+        "id": 98,
+        "email": " ishathi09@gmail.com"
+    },
+    {
+        "id": 81,
+        "email": " rabdur055@gmail.com"
+    },
+    {
+        "id": 15,
+        "email": "a@frt.com"
+    },
+    {
+        "id": 11,
+        "email": "a@gmail.com"
+    },
+    {
+        "id": 12,
+        "email": "a@mail.com"
+    }
+]
+
+//skip
+Route::get('/skip',[QueryBuilderController::class,'skip']);
+//skip first 10 record
+//skip require take also
+public function skip()
+{
+	$users = DB::table('users')->select('id', 'email')->skip(10)->take(5)->get();
+	return $users;
+}
+//Output:
+[
+    {
+        "id": 34,
+        "email": "aitvetibrahim@gmail.com"
+    },
+    {
+        "id": 18,
+        "email": "akramul2540@gmail.com"
+    },
+    {
+        "id": 39,
+        "email": "aliajannat847@gmail.com"
+    },
+    {
+        "id": 84,
+        "email": "altalha82@mygsuite.co"
+    },
+    {
+        "id": 75,
+        "email": "aminmd.tahsin243@gamil.com"
+    }
+]
+
+
+//simple paginate
+Route::get('/simple-paginate',[QueryBuilderController::class,'simple_paginate']);
+//simple paginate
+//Generated Links: Only shows links for previous and next without specific page numbers.
+//Previous Next
+public function simple_paginate()
+{
+	$users = DB::table('users')->select('id', 'email')->simplePaginate(5); //Fetch 5 record per page
+	return $users;
+}
+//Output:
+{
+    "current_page": 1,
+    "data": [
+        {
+            "id": 98,
+            "email": " ishathi09@gmail.com"
+        },
+        {
+            "id": 81,
+            "email": " rabdur055@gmail.com"
+        },
+        {
+            "id": 15,
+            "email": "a@frt.com"
+        },
+        {
+            "id": 11,
+            "email": "a@gmail.com"
+        },
+        {
+            "id": 12,
+            "email": "a@mail.com"
+        }
+    ],
+    "first_page_url": "http://127.0.0.1:8000/simple-paginate?page=1",
+    "from": 1,
+    "next_page_url": "http://127.0.0.1:8000/simple-paginate?page=2",
+    "path": "http://127.0.0.1:8000/simple-paginate",
+    "per_page": 5,
+    "prev_page_url": null,
+    "to": 5
+}
+
+
+//paginate
+Route::get('/paginate',[QueryBuilderController::class,'paginate']);
+ //Generated Links: Includes previous, next, and specific page numbers.
+//1 2 3 4 Next
+public function paginate()
+{
+	$users = DB::table('users')->select('id', 'email')->paginate(5); //Fetch 5 record per page
+	return $users;
+}
+//Ouput:
+    "current_page": 1,
+    "data": [
+        {
+            "id": 98,
+            "email": " ishathi09@gmail.com"
+        },
+        {
+            "id": 81,
+            "email": " rabdur055@gmail.com"
+        },
+        {
+            "id": 15,
+            "email": "a@frt.com"
+        },
+        {
+            "id": 11,
+            "email": "a@gmail.com"
+        },
+        {
+            "id": 12,
+            "email": "a@mail.com"
+        }
+    ],
+    "first_page_url": "http://127.0.0.1:8000/paginate?page=1",
+    "from": 1,
+    "last_page": 21,
+    "last_page_url": "http://127.0.0.1:8000/paginate?page=21",
+    "links": [
+        {
+            "url": null,
+            "label": "&laquo; Previous",
+            "active": false
+        },
+        {
+            "url": "http://127.0.0.1:8000/paginate?page=1",
+            "label": "1",
+            "active": true
+        }
+	]
+	 "next_page_url": "http://127.0.0.1:8000/paginate?page=2",
+    "path": "http://127.0.0.1:8000/paginate",
+    "per_page": 5,
+    "prev_page_url": null,
+    "to": 5,
+    "total": 103
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Join
+//Inner Join(Product Table : Foreign key Category_id , Brand_id)
+Route::get('/inner-join',[QueryBuilderController::class,'inner_join']);
+//Inner Join
+//Inner Join(Product Table : Foreign key Category_id , Brand_id)
+public function inner_join()
+{
+	$products = DB::table('products')
+				->join('categories', 'products.category_id', '=', 'categories.id')
+				->join('brands', 'products.brand_id', '=', 'brands.id')
+				->select('products.*', 'categories.categoryName', 'brands.brandName')
+				->get();
+	return $products;
+}
+//Output:
+[
+    {
+        "id": 1,
+        "title": "New Year Special Shoe",
+        "short_des": "Reference site about Lorem Ipsum, giving information on its \r\norigins, as well as a random Lipsum generator Reference site \r\nabout Lorem Ipsum, giving information on its origins, as well as \r\na random Lipsum generator",
+        "price": "9002",
+        "discount": 10,
+        "discount_price": "0",
+        "image": "https://photo.teamrabbil.com/images/2023/04/04/product.png",
+        "stock": 0,
+        "star": 4.8,
+        "remark": "popular",
+        "category_id": 3,
+        "brand_id": 4,
+        "created_at": "2023-02-19 20:08:12",
+        "updated_at": "2024-12-19 18:31:52",
+        "categoryName": "Fashion",
+        "brandName": "Hatil"
+    },
+    {
+        "id": 2,
+        "title": "New Year Special Shoe",
+        "short_des": "Reference site about Lorem Ipsum, giving information on its \r\norigins, as well as a random Lipsum generator Reference site \r\nabout Lorem Ipsum, giving information on its origins, as well as \r\na random Lipsum generator",
+        "price": "4000",
+        "discount": 0,
+        "discount_price": "1500",
+        "image": "https://photo.teamrabbil.com/images/2023/04/04/product.png",
+        "stock": 0,
+        "star": 4.8,
+        "remark": "popular",
+        "category_id": 3,
+        "brand_id": 4,
+        "created_at": "2023-02-19 20:08:12",
+        "updated_at": "2024-12-19 18:31:58",
+        "categoryName": "Fashion",
+        "brandName": "Hatil"
+    }
+]
+
+
+//Left Join
+Route::get('/left-join',[QueryBuilderController::class,'left_join']);
+//Join
+//Left Join(Product Table : Foreign key Category_id , Brand_id)
+//Select all product brand_id category_id  always match in parent table
+//foreign key used in parent table
+//product(left is boss) -> categories brands
+public function left_join()
+{
+	$products = DB::table('products')
+				->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+				->leftJoin('brands', 'products.brand_id', '=', 'brands.id')
+				->select('products.*', 'categories.categoryName', 'brands.brandName')
+				->get();
+	return $products;
+}
+
+//Output:
+[
+    {
+        "id": 1,
+        "title": "New Year Special Shoe",
+        "short_des": "Reference site about Lorem Ipsum, giving information on its \r\norigins, as well as a random Lipsum generator Reference site \r\nabout Lorem Ipsum, giving information on its origins, as well as \r\na random Lipsum generator",
+        "price": "9002",
+        "discount": 10,
+        "discount_price": "0",
+        "image": "https://photo.teamrabbil.com/images/2023/04/04/product.png",
+        "stock": 0,
+        "star": 4.8,
+        "remark": "popular",
+        "category_id": 3,
+        "brand_id": 4,
+        "created_at": "2023-02-19 20:08:12",
+        "updated_at": "2024-12-19 18:31:52",
+        "categoryName": "Fashion",
+        "brandName": "Hatil"
+    },
+    {
+        "id": 2,
+        "title": "New Year Special Shoe",
+        "short_des": "Reference site about Lorem Ipsum, giving information on its \r\norigins, as well as a random Lipsum generator Reference site \r\nabout Lorem Ipsum, giving information on its origins, as well as \r\na random Lipsum generator",
+        "price": "4000",
+        "discount": 0,
+        "discount_price": "1500",
+        "image": "https://photo.teamrabbil.com/images/2023/04/04/product.png",
+        "stock": 0,
+        "star": 4.8,
+        "remark": "popular",
+        "category_id": 3,
+        "brand_id": 4,
+        "created_at": "2023-02-19 20:08:12",
+        "updated_at": "2024-12-19 18:31:58",
+        "categoryName": "Fashion",
+        "brandName": "Hatil"
+    }
+]
+
+
+//Right JOIN
+Route::get('/right-join',[QueryBuilderController::class,'right_join']);
+//Join
+//Right Join(Product Table : Foreign key Category_id , Brand_id)
+//Select all brand_id category_id not match than show null in  product information
+//Product<-Category(right is boss)
+public function right_join()
+{
+	$products = DB::table('products')
+		->rightJoin('categories', 'products.category_id', '=', 'categories.id')
+		//->rightJoin('brands','products.brand_id','=','brands.id')
+		//->select('products.*','categories.*','brands.*')
+		->select('products.*', 'categories.id as Category_id', 'categories.*')
+		->get();
+	return $products;
+}
+//Output:
+[
+    {
+        "id": 1,
+        "title": null,
+        "short_des": null,
+        "price": null,
+        "discount": null,
+        "discount_price": null,
+        "image": null,
+        "stock": null,
+        "star": null,
+        "remark": null,
+        "category_id": null,
+        "brand_id": null,
+        "created_at": "2023-02-19 20:03:01",
+        "updated_at": "2023-04-05 01:23:17",
+        "Category_id": 1,
+        "categoryName": "Electronics",
+        "categoryImg": "https://photo.teamrabbil.com/images/2023/04/04/Group-1058.png"
+    },
+    {
+        "id": 2,
+        "title": null,
+        "short_des": null,
+        "price": null,
+        "discount": null,
+        "discount_price": null,
+        "image": null,
+        "stock": null,
+        "star": null,
+        "remark": null,
+        "category_id": null,
+        "brand_id": null,
+        "created_at": "2023-02-19 20:03:01",
+        "updated_at": "2023-04-05 01:23:17",
+        "Category_id": 2,
+        "categoryName": "Food",
+        "categoryImg": "https://photo.teamrabbil.com/images/2023/04/04/Group-1059.png"
+    }
+]
+
+//CROSS JOIN
+Route::get('/cross-join',[QueryBuilderController::class,'cross_join']);
+//cross join
+public function cross_join()
+{
+	$products = DB::table('products')
+		->crossJoin('categories')
+		//->crossJoin('brands')
+		->select('products.*', 'categories.id as Category_id', 'categories.*')
+		->where('categories.categoryName', '=', 'Electronics')
+		->where('products.price', '=', '4000')
+		->get();
+	return $products;
+}
+//Output:
+[
+    {
+        "id": 1,
+        "title": "New Year Special Shoe",
+        "short_des": "Reference site about Lorem Ipsum, giving information on its \r\norigins, as well as a random Lipsum generator Reference site \r\nabout Lorem Ipsum, giving information on its origins, as well as \r\na random Lipsum generator",
+        "price": "4000",
+        "discount": 0,
+        "discount_price": "1500",
+        "image": "https://photo.teamrabbil.com/images/2023/04/04/product.png",
+        "stock": 0,
+        "star": 4.8,
+        "remark": "popular",
+        "category_id": 3,
+        "brand_id": 4,
+        "created_at": "2023-02-19 20:03:01",
+        "updated_at": "2023-04-05 01:23:17",
+        "Category_id": 1,
+        "categoryName": "Electronics",
+        "categoryImg": "https://photo.teamrabbil.com/images/2023/04/04/Group-1058.png"
+    }
+]
+
+//The UNION operator combines the result of both SELECT statements,
+//removing duplicate rows by default.
+Route::get('/union',[QueryBuilderController::class,'union']);
+//Union
+//The UNION operator combines the result of both SELECT statements,
+//removing duplicate rows by default.
+public function union(){
+	$query1=DB::table('products')
+			->where('price','>=',4000);
+
+	$query2=DB::table('products')
+			->where('category_id','=',4);
+
+	$result=$query1->union($query2)->get();
+
+	return $result;
+}
+//Output:
+[
+    {
+        "id": 1,
+        "title": "New Year Special Shoe",
+        "short_des": "Reference site about Lorem Ipsum, giving information on its \r\norigins, as well as a random Lipsum generator Reference site \r\nabout Lorem Ipsum, giving information on its origins, as well as \r\na random Lipsum generator",
+        "price": "9002",
+        "discount": 10,
+        "discount_price": "0",
+        "image": "https://photo.teamrabbil.com/images/2023/04/04/product.png",
+        "stock": 0,
+        "star": 4.8,
+        "remark": "popular",
+        "category_id": 3,
+        "brand_id": 4,
+        "created_at": "2023-02-19 20:08:12",
+        "updated_at": "2024-12-19 18:31:52"
+    },
+    {
+        "id": 2,
+        "title": "New Year Special Shoe",
+        "short_des": "Reference site about Lorem Ipsum, giving information on its \r\norigins, as well as a random Lipsum generator Reference site \r\nabout Lorem Ipsum, giving information on its origins, as well as \r\na random Lipsum generator",
+        "price": "4000",
+        "discount": 0,
+        "discount_price": "1500",
+        "image": "https://photo.teamrabbil.com/images/2023/04/04/product.png",
+        "stock": 0,
+        "star": 4.8,
+        "remark": "popular",
+        "category_id": 3,
+        "brand_id": 4,
+        "created_at": "2023-02-19 20:08:12",
+        "updated_at": "2024-12-19 18:31:58"
+    }
+]
+	
+//Advance Join With Function
+Route::get('/advance-join-using-function',[QueryBuilderController::class,'advance_join_using_function']);
+//For joining use multiple where clause
+/*way1:Raw Query
+SELECT product.*, category.name AS category_name, brands.brandName AS brand_name
+FROM product
+JOIN category ON product.category_id = category.id AND product.price > 2000
+JOIN brands ON product.brand_id = brands.id AND brands.brandName = 'Hatil'; */
+
+
+
+/*Raw Query 2:
+ $products = DB::table('product')
+	->join('category', 'product.category_id', '=', 'category.id')
+	->join('brands', 'product.brand_id', '=', 'brands.id')
+	->where('product.price', '>', 2000)
+	->where('brands.brandName', 'Hatil')
+	->select('product.*', 'category.name as category_name', 'brands.brandName as brand_name')
+	->get(); */
+
+
+
+public function advance_join_using_function(){
+	$products=DB::table('products')
+			->join('categories',function($join){
+				$join->on('products.category_id', '=', 'categories.id')
+						->where('products.price', '>=', 4000);//Adding condition within the join
+			})
+			->join('brands',function($join){
+				$join->on('products.brand_id', '=', 'brands.id')
+					->where('brands.brandName', 'Hatil');// Adding condition within the join
+			})
+			->select('products.*', 'categories.categoryName as category_name', 'brands.brandName as brand_name')
+			->get();
+
+	return $products;
+}
+
+//Output:
+[
+    {
+        "id": 1,
+        "title": "New Year Special Shoe",
+        "short_des": "Reference site about Lorem Ipsum, giving information on its \r\norigins, as well as a random Lipsum generator Reference site \r\nabout Lorem Ipsum, giving information on its origins, as well as \r\na random Lipsum generator",
+        "price": "9002",
+        "discount": 10,
+        "discount_price": "0",
+        "image": "https://photo.teamrabbil.com/images/2023/04/04/product.png",
+        "stock": 0,
+        "star": 4.8,
+        "remark": "popular",
+        "category_id": 3,
+        "brand_id": 4,
+        "created_at": "2023-02-19 20:08:12",
+        "updated_at": "2024-12-19 18:31:52",
+        "category_name": "Fashion",
+        "brand_name": "Hatil"
+    },
+    {
+        "id": 2,
+        "title": "New Year Special Shoe",
+        "short_des": "Reference site about Lorem Ipsum, giving information on its \r\norigins, as well as a random Lipsum generator Reference site \r\nabout Lorem Ipsum, giving information on its origins, as well as \r\na random Lipsum generator",
+        "price": "4000",
+        "discount": 0,
+        "discount_price": "1500",
+        "image": "https://photo.teamrabbil.com/images/2023/04/04/product.png",
+        "stock": 0,
+        "star": 4.8,
+        "remark": "popular",
+        "category_id": 3,
+        "brand_id": 4,
+        "created_at": "2023-02-19 20:08:12",
+        "updated_at": "2024-12-19 18:31:58",
+        "category_name": "Fashion",
+        "brand_name": "Hatil"
+    }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Insert
+Route::post('/insert',[QueryBuilderController::class,'insert']);
+//insert data
+public function insert(Request $request)
+{
+	$inserted = DB::table('brands')->insert([
+		'brandName' => $request->brandName,
+		'brandImg' => $request->brandImg,
+		'created_at' => now(),
+		'updated_at' => now(),
+	]);
+	if ($inserted) {
+		return response()->json(['message' => 'Insertion Successful'], 200);
+	} else {
+		return response()->json(['message' => 'Fail to insert'], 500);
+	}
+}
+//inserted and Get  Id
+Route::post('/insert-get-id',[QueryBuilderController::class,'insertGetId']);
+//inserted and Get Brand Id
+public function insertGetId(Request $request)
+{
+	$insertedBrandId = DB::table('brands')->insertGetId([
+		'brandName' => $request->brandName,
+		'brandImg' => $request->brandImg,
+		'created_at' => now(),
+		'updated_at' => now(),
+	]);
+
+	if ($insertedBrandId) {
+		return response()->json(
+			[
+				'message' => 'Insertion Successful',
+				'brandId' => $insertedBrandId,
+			],
+			200,
+		);
+	} else {
+		return response()->json(['message' => 'Fail to insert'], 500);
+	}
+}
+
+
+//update
+Route::post('/update/{id}',[QueryBuilderController::class,'update']);
+//update products set price=1000 where id=1
+public function update(Request $request, $id)
+{
+	//return number of rows affected
+	$affected = DB::table('products')
+		->where('id', $id)
+		->update([
+			'price' => $request->price,
+			'discount' => $request->discount,
+		]);
+	if ($affected > 0) {
+		return response()->json(
+			[
+				'message' => 'Update Successfull',
+			],
+			200,
+		);
+	} else {
+		return response()->json(
+			[
+				'message' => 'No rows updated',
+			],
+			404,
+		);
+	}
+}
+	
+//updateOrInsert
+Route::post('/update-or-insert',[QueryBuilderController::class,'updateOrInsert']);
+//UpdateOrInsert update an existing record or insert a new one if it does not exist.
+/* DB::table('table_name')->updateOrInsert(
+		['condition_column' => 'value'], // Matching conditions
+		['update_or_insert_column' => 'new_value'] // Data to update or insert
+	);
+*/
+public function updateOrInsert(Request $request)
+{
+	$result = DB::table('brands')->updateOrInsert(
+		// Condition: Look for a record with this brandName
+		['brandName' => $request->brandName],
+
+		// Data to update or insert
+		[
+			//'brandName' => $request->brandName,
+			'brandImg' => $request->brandImg,
+			'created_at' => now(),
+			'updated_at' => now(),
+		],
+	);
+	if ($result) {
+		return response()->json(['message' => 'Record updated or inserted successfully'], 200);
+	} else {
+		return response()->json(['message' => 'No changes made'], 200);
+	}
+}
+
+
+
+//increment Decrement
+Route::post('/increment-decrement-price',[QueryBuilderController::class,'increment_decrement_price']);
+//Increment Decrement
+public function increment_decrement_price()
+{
+	$result = DB::table('products')->where('id', '=', 1)->increment('price'); // Increment the price by 1
+	//->increment('price',100)
+	//->decrement('price')
+	//->decrement('price',100)
+
+	if ($result) {
+		return response()->json(['message' => 'Price incremented successfully'], 200);
+	} else {
+		return response()->json(['message' => 'No changes made'], 404);
+	}
+}
+	
+	
+//delete
+Route::post('/delete/{id}',[QueryBuilderController::class,'delete']);
+//delete: To remove specific rows or all rows while keeping the auto-increment value.
+//Truncate: To clear all rows from a table and reset the auto-increment value.
+public function delete($id)
+{
+	$deleted = DB::table('brands')->where('id', '=', $id)->delete();
+	if ($deleted) {
+		return response()->json(['message' => 'Product deleted successfully'], 200);
+	} else {
+		return response()->json(['message' => 'Product not found'], 404);
+	}
+}
+
+//truncate(no need to execute)
+Route::post('/truncate',[QueryBuilderController::class,'truncate']);
+//delete: To remove specific rows or all rows while keeping the auto-increment value.
+//Truncate method removes all rows from a table and resets the auto-increment counter to zero.
+public function truncate($id)
+{
+	$deleted = DB::table('brands')->truncate();
+	if ($deleted) {
+		return response()->json(['message' => 'Brands Table Deleted successfully'], 200);
+	} else {
+		return response()->json(['message' => 'Brands Table not found'], 404);
+	}
+}

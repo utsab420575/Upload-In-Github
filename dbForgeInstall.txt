@@ -1,0 +1,5 @@
+1.Net Off
+2.Windows Security Thread Off
+3.Install .exe file
+4.Replace crack file into installed folder 
+5.put two command using command prompt(Using Admin access)

@@ -1,0 +1,13 @@
+ ->withMiddleware(function (Middleware $middleware) {
+        $middleware->validateCsrfTokens(except: [
+            'stripe/*',
+        ]);
+    })
+
+
+ ->withMiddleware(function (Middleware $middleware) {
+        $middleware->validateCsrfTokens(except: [
+            'stripe/*',
+            'http://127.0.0.1:8000/*',
+        ]);
+    })
